@@ -76,7 +76,7 @@
             <EditText
                 android:layout_width="2dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText3"
+                android:id="@+id/editText2"
                 android:layout_weight="1"
                 android:textColor="@color/text" />
         </LinearLayout>
@@ -98,7 +98,7 @@
             <EditText
                 android:layout_width="2dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2"
+                android:id="@+id/editText3"
                 android:layout_weight="1"
                 android:textColor="@color/text" />
         </LinearLayout>
