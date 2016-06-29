@@ -1,19 +1,25 @@
 package cmru.siriratanapaisalkul.pichate.cmrurun;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
     //Explicit
     private static final String urlLogo = "http://www.swiftcodingthai.com/cmru/cmru_logo.png";
+    private static final String urlJSON = "http://www.swiftcodingthai.com/cmru/get_user_pichate.php";
 
     private ImageView imageView;
     private EditText userEditText, passwordEditText;
@@ -37,10 +43,40 @@ public class MainActivity extends AppCompatActivity {
     //Create Inner Class
     private class SynUser extends AsyncTask<Void, Void, String> {
 
+        //Explicit
+        private Context context;
+        private String strURL;
+
+        public SynUser(Context context, String strURL) {
+            this.context = context;
+            this.strURL = strURL;
+        }
+
         @Override
         protected String doInBackground(Void... params) {
-            return null;
+
+            try {
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url(strURL).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+            } catch (Exception e) {
+                Log.d("29JUNE", "e doInBack ==>" + e.toString());
+                return null;
+            }
+
+            //return null;
         }   //doInBack
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.d("29JUNE", "JSON ==>" + s);
+
+        }   //onPost
 
     }   //SynUser Class
 
@@ -53,10 +89,18 @@ public class MainActivity extends AppCompatActivity {
         if (userString.equals("") || passwordString.equals("")) {
             //Have Space
             MyAlert myAlert = new MyAlert();
-            myAlert.myDialog(this, "มีช่องว่าง", "กรุณากรอกทุกช่อง คะ");
+            myAlert.myDialog(this, "มีช่องว่าง (Have Space)", "กรุณากรอกทุกช่อง คะ (Please Fill All Every Blank");
+        } else {
+            checkUserPassword();
+
         }
 
     }   //clickSignIn
+
+    private void checkUserPassword() {
+        SynUser synUser = new SynUser(this,urlJSON);
+        synUser.execute();
+    }
 
     public void clickSignUpMain(View view) {
         startActivity(new Intent(MainActivity.this, SignUpActivity.class));
