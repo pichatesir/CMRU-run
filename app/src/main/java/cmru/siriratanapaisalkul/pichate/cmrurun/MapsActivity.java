@@ -5,6 +5,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,9 +126,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         createStationMarker();
 
+        myLoop();
+
+   }
+    private void myLoop() {
+        Log.d("29JUNEV1", "userLat ==>" + userLatADouble);
+        Log.d("29JUNEV1", "userLng ==>" + userLngADouble);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myLoop();
+            }
+        }, 3000);
 
     }
-
     private void createStationMarker() {
 
         MyData myData = new MyData();
