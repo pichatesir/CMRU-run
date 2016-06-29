@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg9">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -24,10 +25,15 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <fragment
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:id="@+id/fragment"
-        android:layout_above="@+id/linbottom" />
+        tools:context="cmru.siriratanapaisalkul.pichate.cmrurun.MapsActivity"
+        android:layout_above="@+id/linbottom"
+        android:layout_margin="20dp" />
+
 </RelativeLayout>
