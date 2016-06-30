@@ -3,6 +3,7 @@ package cmru.siriratanapaisalkul.pichate.cmrurun;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -280,11 +281,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         builder.setPositiveButton("เริ่มตอบคำถาม", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(MapsActivity.this, ExerciseActivity.class);
+                intent.putExtra("userID", userIDString);
+                intent.putExtra("Gold", goldString);
+                intent.putExtra("Name", userNameString);
+                intent.putExtra("Avata", getIntent().getStringExtra("Avata"));
+
+                startActivity(intent);
+                finish();
+
 
 
             }   //onClick
-        });
 
+        });
+        builder.show();
     }   //comfirmDialog
 
     private double rad2deg(double douMyDistance) {
