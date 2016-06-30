@@ -38,7 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double userLatADouble , userLngADouble;
     private LocationManager locationManager;
     private Criteria criteria;
-    private String userIDString, userNameString;
+    private String userIDString, userNameString, goldString;
     private static final String urlEditLocation =
             "http://swiftcodingthai.com/cmru/edit_location_pichate.php";
 
@@ -59,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Get Value From Intent
         userIDString = getIntent().getStringExtra("userID");
         userNameString = getIntent().getStringExtra("Name");
+        goldString = getIntent().getStringExtra("Gold");
+
         Log.d("30JuneV1", "userID ==>" + userIDString);
         Log.d("30JuneV1", "userName ==>" + userNameString );
 
@@ -219,6 +221,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         editLocation();
 
+        checkDistance();
+
+
         SynLocation synLocation= new SynLocation();
         synLocation.execute();
 
@@ -232,6 +237,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }, 3000);
 
     }
+
+    private void checkDistance() {
+
+        MyData myData = new MyData();
+        double[] latStationDoubles = myData.getLatStationDoubles();
+        double[] lngStationDoubles = myData.getLngStationDoubles();
+
+        double douMyDistance = Math.sin(deg2rad(userLatADouble))
+                * Math.sin(deg2rad(latStationDoubles[Integer.parseInt(goldString)]))
+                + Math.cos(deg2rad(userLatADouble))
+                * Math.cos(deg2rad(latStationDoubles[Integer.parseInt(goldString)]))
+                * Math.cos(deg2rad((userLngADouble-lngStationDoubles[Integer.parseInt(goldString)])));
+        douMyDistance = Math.acos(douMyDistance);
+        douMyDistance = rad2deg(douMyDistance);
+
+        douMyDistance = douMyDistance * 60 * 1.1515 * 1.609344 * 1000;
+
+        Log.d("30JuneV2", "myDistance เทียบกับ ฐานที่ "
+                + goldString + "มีค่าเท่ากับ " + douMyDistance);
+    }   //checkDistance
+
+    private double rad2deg(double douMyDistance) {
+        double result = 0;
+        result = douMyDistance * 180 / Math.PI;
+        return result;
+    }
+
+    private double deg2rad(double userLatADouble) {
+
+        double result = 0;
+        result = userLatADouble * Math.PI / 180;
+        return result;
+    }
+
 
     private void editLocation() {
 
