@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private EditText userEditText, passwordEditText;
     private String userString,passwordString;
+    private String strID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         statusABoolean = false;
                         truePasswordString = jsonObject.getString("Password");
                         nameUserString = jsonObject.getString("Name");
+                        strID = jsonObject.getString("id");
 
                     }   //if
 
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, "Welcome" + nameUserString,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                     intent.putExtra("Name", nameUserString);
+                    intent.putExtra("userID", strID);
+
                     startActivity(intent);
                     finish();
                 } else {
