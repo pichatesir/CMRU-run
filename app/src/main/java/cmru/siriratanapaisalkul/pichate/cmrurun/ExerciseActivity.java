@@ -1,13 +1,21 @@
 package cmru.siriratanapaisalkul.pichate.cmrurun;
 
+import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
 
 public class ExerciseActivity extends AppCompatActivity {
 
@@ -53,7 +61,51 @@ public class ExerciseActivity extends AppCompatActivity {
         stationTextView.setText("ฐานที่ "
                 + Integer.toString(Integer.parseInt(goldString) + 1));
 
+        SynQuestion synQuestion =new SynQuestion();
+        synQuestion.execute();
+
     }   //Main Method
+
+    private class SynQuestion extends AsyncTask<Void, Void, String> {
+
+        //Explicit
+        private static final String urlJSON = "http://swiftcodingthai.com/cmru/get_question.php";
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url(urlJSON).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+
+
+            } catch (Exception e) {
+                Log.d("1JulyV1", "e doIn ==> " + e.toString());
+                return null;
+            }
+
+        }   //doIn Method
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONArray jsonArray = new JSONArray();
+                for (int i=0;i<jsonArray.length();i++) {
+
+                }
+
+            } catch (Exception e) {
+                Log.d("1JulyV1" , "JSON ==>" + s);
+            }
+
+
+
+        }
+    }   //SynQuestion class
 
     public void clickAnswer(View view) {
 
