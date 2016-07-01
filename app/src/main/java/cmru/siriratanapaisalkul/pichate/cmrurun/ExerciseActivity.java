@@ -18,6 +18,8 @@ import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 public class ExerciseActivity extends AppCompatActivity {
 
     //Explicit
@@ -28,6 +30,9 @@ public class ExerciseActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton choice1RadioButton, choice2RadioButton,
             choice3RadioButton,choice4RadioButton;
+    private String[] myQuestionStrings, myChoice1Strings,
+            myChoice2Strings, myChoice3Strings,
+            myChoice4Strings,myAnswerStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +121,39 @@ public class ExerciseActivity extends AppCompatActivity {
                     answerStrings[i] = jsonObject.getString("Answer");
 
                     Log.d("1JulyV2", "question(" + i + ") = " + questionStrings[i]);
-
-                    if (i<5) {
-                        questionTextView.setText(questionStrings[i]);
-                        choice1RadioButton.setText(choice1Strings[i]);
-                        choice2RadioButton.setText(choice2Strings[i]);
-                        choice3RadioButton.setText(choice3Strings[i]);
-                        choice4RadioButton.setText(choice4Strings[i]);
-
-
-                    }   //if
-
                 }   //for
+
+                myQuestionStrings = new String[5];
+                myChoice1Strings = new String[5];
+                myChoice2Strings = new String[5];
+                myChoice3Strings = new String[5];
+                myChoice4Strings = new String[5];
+                myAnswerStrings = new String[5];
+
+
+                    for (int i=0;i<5;i++){
+                        Random random = new Random();
+                        int randomIndex = random.nextInt(jsonArray.length());
+                        myQuestionStrings[i] = questionStrings[randomIndex];
+                        myChoice1Strings[i] = choice1Strings[randomIndex];
+                        myChoice2Strings[i] = choice2Strings[randomIndex];
+                        myChoice3Strings[i] = choice3Strings[randomIndex];
+                        myChoice4Strings[i] = choice4Strings[randomIndex];
+                        myAnswerStrings[i] = answerStrings[randomIndex];
+                    }   //for
+
+                       /* if (i < 5) {
+                            questionTextView.setText(questionStrings[i]);
+                            choice1RadioButton.setText(choice1Strings[i]);
+                            choice2RadioButton.setText(choice2Strings[i]);
+                            choice3RadioButton.setText(choice3Strings[i]);
+                            choice4RadioButton.setText(choice4Strings[i]);
+
+
+                        }   //if
+                        */
+
+
 
             } catch (Exception e) {
                 Log.d("1JulyV1" , "e onPost ==>" + e.toString());
@@ -139,6 +165,10 @@ public class ExerciseActivity extends AppCompatActivity {
     }   //SynQuestion class
 
     public void clickAnswer(View view) {
+
+        for (int i=0;i<5;i++) {
+            Log.d(("1JulyV3"), "myQuesion(" + i + ")= " + myQuestionStrings[i]);
+        }
 
 
 
