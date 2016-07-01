@@ -33,7 +33,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private String[] myQuestionStrings, myChoice1Strings,
             myChoice2Strings, myChoice3Strings,
             myChoice4Strings,myAnswerStrings;
-    private int timesAnInt =0;
+    private int timesAnInt =0, scoreAnInt=0, userChooseAnInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,25 @@ public class ExerciseActivity extends AppCompatActivity {
 
         SynQuestion synQuestion =new SynQuestion();
         synQuestion.execute();
+
+        //Get Value From RadioGroup
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+                    case R.id.radioButton6:
+                        userChooseAnInt = 1;
+                    case R.id.radioButton7:
+                        userChooseAnInt = 2;
+                    case R.id.radioButton8:
+                        userChooseAnInt = 3;
+                    case R.id.radioButton9:
+                        userChooseAnInt = 4;
+                }
+
+            }   //onCheck
+        });
 
     }   //Main Method
 
@@ -173,9 +192,18 @@ public class ExerciseActivity extends AppCompatActivity {
             myAlert.myDialog(this, "ไม่ได้ตอบคำถาม", "กรุณาตอบคำถาม");
 
         } else if (timesAnInt<5) {
+
+            //Check Score
+            if (userChooseAnInt == Integer.parseInt(myAnswerStrings[timesAnInt])) {
+                scoreAnInt += 1;
+                Log.d("1JulyV4" , "Score ==> " + scoreAnInt);
+            }
             if (timesAnInt!=4) {
                 timesAnInt += 1;
             }
+
+            radioGroup.clearCheck();
+
             questionTextView.setText(Integer.toString(timesAnInt + 1)
                     + ". " + myQuestionStrings[timesAnInt]);
             choice1RadioButton.setText(myChoice1Strings[timesAnInt]);
