@@ -280,6 +280,13 @@ public class ExerciseActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = new Intent(ExerciseActivity.this , MapsActivity.class);
+        intent.putExtra("userID", userIDString);
+        intent.putExtra("Name", nameString);
+        intent.putExtra("Gold", Integer.toString(intgold));
+        startActivity(intent);
+        finish();
+
 
     }   //editGoldOnServer
 
