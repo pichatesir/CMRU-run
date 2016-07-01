@@ -142,17 +142,12 @@ public class ExerciseActivity extends AppCompatActivity {
                         myAnswerStrings[i] = answerStrings[randomIndex];
                     }   //for
 
-                       /* if (i < 5) {
-                            questionTextView.setText(questionStrings[i]);
-                            choice1RadioButton.setText(choice1Strings[i]);
-                            choice2RadioButton.setText(choice2Strings[i]);
-                            choice3RadioButton.setText(choice3Strings[i]);
-                            choice4RadioButton.setText(choice4Strings[i]);
-
-
-                        }   //if
-                        */
-
+                //Show View Time
+                questionTextView.setText("1. " + myQuestionStrings[0]);
+                choice1RadioButton.setText(myChoice1Strings[0]);
+                choice2RadioButton.setText(myChoice2Strings[0]);
+                choice3RadioButton.setText(myChoice3Strings[0]);
+                choice4RadioButton.setText(myChoice4Strings[0]);
 
 
             } catch (Exception e) {
@@ -161,7 +156,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
 
-        }
+        }   //onPost
     }   //SynQuestion class
 
     public void clickAnswer(View view) {
