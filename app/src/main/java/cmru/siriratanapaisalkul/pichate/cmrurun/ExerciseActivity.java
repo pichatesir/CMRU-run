@@ -198,8 +198,12 @@ public class ExerciseActivity extends AppCompatActivity {
                 scoreAnInt += 1;
                 Log.d("1JulyV4" , "Score ==> " + scoreAnInt);
             }
-            if (timesAnInt!=4) {
+            if (timesAnInt != 4) {
                 timesAnInt += 1;
+            } else {
+                //timesAnInt = 4
+                //End of Times
+                Log.d("1JulyV4", "End of Times");
             }
 
             radioGroup.clearCheck();
@@ -212,7 +216,7 @@ public class ExerciseActivity extends AppCompatActivity {
             choice4RadioButton.setText(myChoice4Strings[timesAnInt]);
 
         } else {
-            //End of Times
+
 
         }
 
